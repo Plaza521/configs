@@ -1,0 +1,7 @@
+[
+	{
+    "keys"      : ["ctrl+alt+t"],
+    "command"   : "tab_to_space_converter",
+    "args"      : {"previous_tab_size": 8, "all_views": false}
+	}
+]

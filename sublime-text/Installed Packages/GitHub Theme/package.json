@@ -1,0 +1,49 @@
+{
+    "name": "github-sublime-theme",
+    "version": "2.6.0",
+    "description": "GitHub theme for Sublime Text",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mauroreisvieira/github-sublime-theme"
+    },
+    "bugs": {
+        "url": "https://github.com/mauroreisvieira/github-sublime-theme/issues"
+    },
+    "author": "Mauro Reis Vieira <mauroreisvieira@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w",
+        "build": "ts-node src/index.ts",
+        "icons": "ts-node src/icons.ts",
+        "prettier": "prettier --write \"src/*.ts?(x)\"",
+        "lint": "eslint src/*.ts",
+        "changelog": "conventional-changelog -p angular -r 2 -i CHANGELOG.md -s",
+        "release": "bash scripts/release.sh",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
+    "devDependencies": {
+        "@types/node": "^18.13.0",
+        "@babel/core": "7.20.12",
+        "@babel/preset-env": "7.20.2",
+        "@commitlint/cli": "^17.4.3",
+        "@commitlint/config-conventional": "^17.4.3",
+        "@meetio/scheme-generator": "^3.1.0",
+        "@primer/primitives": "^7.11.1",
+        "@types/glob": "^8.0.1",
+        "@typescript-eslint/eslint-plugin": "5.52.0",
+        "@typescript-eslint/parser": "5.52.0",
+        "conventional-changelog-cli": "^2.2.2",
+        "eslint": "8.34.0",
+        "picocolors": "^1.0.0",
+        "husky": "^8.0.3",
+        "prettier": "^2.8.4",
+        "svg2img": "^0.9.4",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.9.5"
+    }
+}

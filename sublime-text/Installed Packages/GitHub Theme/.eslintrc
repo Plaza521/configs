@@ -1,0 +1,13 @@
+{
+    "rules": {},
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module",
+        "requireConfigFile": false
+    },
+    "extends": ["eslint:recommended"],
+    "env": {
+        "browser": true
+    }
+}
