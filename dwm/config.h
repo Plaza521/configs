@@ -1,7 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int gappx     = 10;
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
@@ -19,7 +20,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "Ds", "Browser", "Term", "Subl", "I", "II", "III", "IV", "Other" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -28,7 +29,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	// { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
 /* layout(s) */
@@ -56,13 +57,15 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+// static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *roficmd[]  = { "rofi", "-show", "run", NULL };
 static const char *termcmd[]  = { "sakura", NULL };
 /* Volume 5% */
 static const char *volupcmd[]  = { "amixer", "-D", "pulse", "sset", "Master", "5%+", "unmute", NULL };
 static const char *voldowncmd[]  = { "amixer", "-D", "pulse", "sset", "Master", "5%-", "unmute", NULL };
-static const char *firefoxcmd[]  = { "org.mozilla.firefox", NULL };
+static const char *firefoxcmd[]  = { "firefox", NULL };
 static const char *discordcmd[]  = { "discord", NULL };
+static const char *sublcmd[] = { "subl", NULL };
 static const char *scrotcmd[] = { "/home/plaza/dwmscripts/scrot.sh", NULL };
 static const char *layoutcmd[] = { "python", "/home/plaza/dwmscripts/layout.py", NULL };
 
@@ -70,13 +73,14 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
   	{ MODKEY, XK_F5, spawn, SHCMD("setxkbmap us") },
   	{ MODKEY, XK_F6, spawn, SHCMD("setxkbmap ru") },
-	{ MODKEY,			XK_space,  spawn,          {.v = layoutcmd} },
+	{ MODKEY,                       XK_space,  spawn,          {.v = layoutcmd} },
 	{ 0,                            XK_Print,  spawn,          {.v = scrotcmd} },
-	{ MODKEY,			XK_s,	   spawn,	   {.v = firefoxcmd} },
+	{ MODKEY,                       XK_s,      spawn,          {.v = firefoxcmd} },
 	{ MODKEY,                       0x5d,      spawn,          {.v = volupcmd } },
 	{ MODKEY,                       0x5b,      spawn,          {.v = voldowncmd } },
 	{ MODKEY,                       XK_x,      spawn,          {.v = discordcmd} },
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = roficmd } },
+	{ MODKEY,                       XK_z,      spawn,          {.v = sublcmd} },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },

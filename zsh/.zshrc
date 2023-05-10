@@ -8,9 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-
-# ZSH_THEME="robbyrussell"
-ZSH_THEME="headline"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -72,7 +70,7 @@ ZSH_THEME="headline"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -102,20 +100,4 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-HEADLINE_USER_BEGIN='--'
-HEADLINE_USER_TO_HOST='-'
-HEADLINE_HOST_TO_PATH='-'
-HEADLINE_PATH_TO_BRANCH='-'
-HEADLINE_PAD_TO_BRANCH='-'
-HEADLINE_BRANCH_TO_STATUS='-'
-HEADLINE_STATUS_END='--'
-HEADLINE_PAD_CHAR='-'
-HEADLINE_TRUNC_PREFIX='…'
-HEADLINE_LINE_MODE=off
-HEADLINE_DO_CLOCK=true
-
-export PATH="/home/plaza/.local/bin/:$PATH"
-
-clear
-
-neofetch
+source ~/headline.zsh-theme

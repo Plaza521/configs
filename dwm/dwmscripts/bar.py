@@ -5,6 +5,13 @@ from time import sleep
 import psutil
 
 
+def get_command_out(command: str) -> None:
+    return subprocess.check_output(
+        command,
+        shell=True
+    ).decode("utf-8")
+
+
 class BarItem:
     def __init__(
         self,
@@ -58,10 +65,10 @@ class Bar:
 
     def write(self, reversed: bool = True) -> None:
         out = ''.join(
-            [str(self[i]) + ' | ' for i in range(len(self))
+            ['[ ' + str(self[i]) + ' ] ' for i in range(len(self))
              if self[i]
              ]
-        )[:-2]
+        )[:-1]
         os.system(f"xsetroot -name \"{out}\"")
 
 
@@ -90,16 +97,49 @@ class LayoutItem(BarItem):
         super().__init__(True)
 
     def update(self) -> None:
-        self.out = str(subprocess.check_output(
-            "setxkbmap -query | grep layout",
-            shell=True
-        ).split()[-1])[2:-1].upper()
+        self.out = get_command_out(
+            "setxkbmap -query | grep layout"
+        ).split()[-1].upper()
+
+
+class CPUUsageItem(BarItem):
+    def __init__(self) -> None:
+        super().__init__(True)
+
+    def update(self) -> None:
+        usage = psutil.cpu_percent()
+        usage = f"{usage}" if usage % 1 else F"{int(usage)}.0"
+        self.out = f"CPU:{usage:0>4}%"
+
+
+class DiskUsageItem(BarItem):
+    def __init__(self, divider: int = 10**9) -> None:
+        super().__init__(True)
+        """Disk in GB"""
+        self.divider = 10**9
+        self.total = round(psutil.disk_usage('/').total / self.divider, 1)
+
+    def update(self) -> None:
+        used = round(psutil.disk_usage('/').used / self.divider, 1)
+        self.out = F"Disk:{used}G/{self.total}G"
+
+
+class InfoItem(BarItem):
+    def __init__(self, text: str) -> None:
+        super().__init__(True)
+        self.out = text
 
 
 def main() -> None:
+    kernel_ver = get_command_out("uname -r")[:-1]
+
     bar = Bar()
     bar[9] = TimeItem()
     bar[8] = RAMItem()
+    bar[7] = DiskUsageItem()
+    bar[6] = CPUUsageItem()
+
+    bar[1] = InfoItem(kernel_ver)
     bar[0] = LayoutItem()
     bar.start(1)
 
